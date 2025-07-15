@@ -16,8 +16,6 @@ import Tailwind from './assets/Tailwind.png';
 import mobDevIcon from './assets/mobile-development.png';
 import dev from './assets/development.png'
 import { useState } from 'react';
-import { InstagramIcon, Linkedin } from "lucide-react";
-import { TiSocialInstagramCircular } from "react-icons/ti";
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitterX } from "react-icons/bs";
 
 function App() {
