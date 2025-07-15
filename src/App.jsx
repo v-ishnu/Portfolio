@@ -273,12 +273,12 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4 mb-14">
               <a
                 href="mailto:vishnu.praaksh@gmail.com"
-                className="bg-black hover:bg-gray-800 text-white px-8 py-4 rounded-full transition-colors text-sm md:text-base"
+                className="bg-black hover:underline text-white px-8 py-4 rounded-full transition-colors text-sm md:text-base"
               >
                 Email Me
               </a>
               <a
-                href="https://wa.me/"
+                href="https://wa.me/+918936860540"
                 className="bg-white hover:bg-gray-50 border-2 border-gray-300 hover:border-gray-400 text-black px-8 py-4 rounded-full transition-colors text-sm md:text-base"
               >
                 WhatsApp
