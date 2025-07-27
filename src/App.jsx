@@ -11,12 +11,14 @@ import JavaScript from './assets/JavaScript.png';
 import Linux from './assets/Linux.png';
 import React from './assets/React.png';
 import Tailwind from './assets/Tailwind.png';
+import HandShake from './assets/hands.png'
 // -------- end
 
 import mobDevIcon from './assets/mobile-development.png';
 import dev from './assets/development.png'
 import { useState } from 'react';
-import { BsGithub, BsInstagram, BsLinkedin, BsTwitterX } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsTwitterX } from "react-icons/bs";
+import { LuLinkedin } from "react-icons/lu";
 
 function App() {
   const [copied, setCopied] = useState(false);
@@ -109,40 +111,40 @@ function App() {
                 <div className="flex flex-row h-10 w-max text-black items-center pl-4 pr-[2px] rounded-full">
                   <button
                     onClick={handleCopy}
-                    className={`bg-white rounded-[18px] px-6 py-2 text-[12px] font-medium mr-2 transition-all duration-300 ${copied ? 'bg-white text-black font-outfit' : ''
+                    className={`bg-black rounded-[18px] px-6 py-2 text-[12px] text-white font-medium mr-2 transition-all duration-300 ${copied ? 'text-white font-outfit' : ''
                       }`}
                   >
-                    {copied ? 'Copied!' : 'Copy'}
+                    {copied ? 'Copied!' : 'Email'}
                   </button>
-                  <button className="bg-white rounded-[18px] px-6 py-2 text-[12px] font-medium hover:underline">CV</button>
+                  <button className="bg-white rounded-[18px] px-6 py-[6px] text-[12px] font-medium hover:underline border-x-[4px] border-y-[4px] border-opacity-50 border-gray-200">CV</button>
                 </div>
                 <div className="flex flex-row gap-3 items-center justify-center pr-4">
                   {/* Linkedin */}
                   <button
                     type="button"
-                    className="h-8 w-8 rounded-full bg-black focus:outline-none flex items-center justify-center"
+                    className="h-9 w-9 rounded-full bg-white focus:outline-none flex items-center justify-center border-x-[3px] border-y-[3px] border-opacity-50 border-gray-200"
                     onClick={() => window.open('https://www.linkedin.com/in/vishnupraksh', '_blank')}
                     aria-label="Open LinkedIn"
                   >
-                    <BsLinkedin color="white" width={20} height={20} />
+                    <LuLinkedin color="black" width={20} height={20} />
                   </button>
                   {/* Instagram */}
                   <button
                     type="button"
-                    className="h-8 w-8 rounded-full bg-black focus:outline-none flex items-center justify-center"
+                    className="h-9 w-9 rounded-full bg-white focus:outline-none flex items-center justify-center border-x-[3px] border-y-[3px] border-opacity-50 border-gray-200"
                     onClick={() => window.open('https://www.instagram.com/_im_vishn_u', '_blank')}
                     aria-label="Open Instagram"
                   >
-                    <BsInstagram color="white" width={20} height={20} />
+                    <BsInstagram color="black" width={17} height={17} />
                   </button>
                   {/* Twitter */}
                   <button
                     type="button"
-                    className="h-8 w-8 rounded-full bg-black focus:outline-none flex items-center justify-center"
+                    className="h-9 w-9 rounded-full bg-white focus:outline-none flex items-center justify-center border-x-[3px] border-y-[3px] border-opacity-50 border-gray-200"
                     onClick={() => window.open('https://x.com/_im_vishn_u', '_blank')}
                     aria-label="Open TwitterX"
                   >
-                    <BsTwitterX color="white" width={20} height={20} />
+                    <BsTwitterX color="black" width={17} height={17} />
                   </button>
                 </div>
               </div>
@@ -208,8 +210,8 @@ function App() {
           {/* Marquee Section */}
           <div className="relative w-full overflow-hidden py-10">
             <div className="flex justify-center">
-              <span className="font-outfit">
-                Tech Stack
+              <span className="text-[18px] font-bold font-outfit inline-block bg-clip-text text-transparent bg-gradient-to-r from-black via-black/55 to-black/55">
+                Tech  Stack
               </span>
             </div>
             <div className="flex animate-marquee pt-10 items-center">
@@ -257,9 +259,9 @@ function App() {
         <div className="bg-white border-t border-gray-300 rounded-tl-[70px] rounded-tr-[70px] lg:rounded-tl-[6.5625rem] lg:rounded-tr-[6.5625rem] pt-16 pb-8 md:pt-24 px-4">
           <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
             {/* Profile Image */}
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white mb-8">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white mb-8 bg-gray-100">
               <img
-                src={Profile}
+                src={HandShake}
                 alt="Vishnu Prakash"
                 className="h-full w-full object-cover"
                 loading="lazy"
