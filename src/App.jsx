@@ -66,6 +66,19 @@ function App() {
     setTimeout(() => setCopied(false), 2000); // Reduced from 6s to 2s for better UX
   };
 
+  const downloadCV = () => {
+    console.log("Button clicked");
+
+    const link = document.createElement("a");
+    link.href = "/files/Resume.pdf";
+    link.download = "Resume.pdf";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-gray-50 select-none font-outfit">
       <div
@@ -109,6 +122,7 @@ function App() {
               {/* Header for mobile */}
               <div className="flex md:hidden lg:hidden flex-row h-[15%] items-center justify-between px-1">
                 <div className="flex flex-row h-10 w-max text-black items-center pl-4 pr-[2px] rounded-full">
+                  {/* Email Section */}
                   <button
                     onClick={handleCopy}
                     className={`bg-black rounded-[18px] px-6 py-2 text-[12px] text-white font-medium mr-2 transition-all duration-300 ${copied ? 'text-white font-outfit' : ''
@@ -116,8 +130,15 @@ function App() {
                   >
                     {copied ? 'Copied!' : 'Email'}
                   </button>
-                  <button className="bg-white rounded-[18px] px-6 py-[6px] text-[12px] font-medium hover:underline border-x-[4px] border-y-[4px] border-opacity-50 border-gray-200">CV</button>
+                  {/* CV Section */}
+                  <button
+                    onClick={downloadCV}
+                    className="bg-white rounded-[18px] px-6 py-[6px] text-[12px] font-medium hover:underline border-x-[4px] border-y-[4px] border-opacity-50 border-gray-200">
+                    CV
+                  </button>
                 </div>
+
+
                 <div className="flex flex-row gap-3 items-center justify-center pr-4">
                   {/* Linkedin */}
                   <button
@@ -159,7 +180,7 @@ function App() {
                   >
                     {copied ? 'Copied!' : 'Copy'}
                   </button>
-                  <button className="bg-white rounded-[18px] px-6 py-2 text-[12px] font-medium hover:underline">CV</button>
+                  <button onClick={downloadCV} className="bg-white rounded-[18px] px-6 py-2 text-[12px] font-medium hover:underline">CV</button>
                 </div>
                 <div className="flex flex-row font-outfit font-light">
                   <a className="hover:underline text-[14px] mr-1" href="https://www.instagram.com/_im_vishn_u">Instagram</a>
