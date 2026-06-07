@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/** {*/
-/*  outline: 1px solid red;*/
-/*}*/
+/* Hide scrollbar globally */
+html, body {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0) rotate(-12deg); }

@@ -1,0 +1,75 @@
+--- Page 1 ---
+Vishnu Prakash
++91-8936860540|vishnu.praaksh@gmail.com
+/♀nednLinkedIn|/gtbGitHub|/g♀bePortfolio
+Professional Summary
+React Native and Full Stack Developer with hands-on experience building scalable mobile and web applications using React
+Native, Flutter, Node.js, MongoDB, REST APIs, and TypeScript. Skilled in authentication systems, API integration,
+responsive UI development, and backend architecture. Hackathon winner with experience delivering production-ready client
+projects and serverless applications.
+Technical Skills
+Languages:Python, C/C++, SQL, GO, JavaScript, TypeScript, HTML5, CSS3
+F rameworks:React Native, Next.js, Flutter, React.js, Node.js, Express, Tailwind CSS
+Backend & APIs:REST APIs, Redis, JWT Authentication, OAuth, Rate Limiting, Google Sheets API, API Integration
+Databases:MongoDB, MySQL
+T ools & T echnologies:Git, Docker (Basics), Linux, DBeaver, Postman/Requestly, REST Clients, Payment Gateway
+Integration, Mobile Applications, Figma
+Concepts:RESTful APIs, Client–Server Architecture, Authentication & Authorization, Asynchronous Programming, State
+Management, Props vs State, Component-Based Architecture, CI/CD Basic
+Experience
+F reelance F ull-Stack Developer – Anvera EsportRemote
+•Developed a scalable esports tournament platform using Next.js, Node.js, MongoDB, and REST APIs supporting real-time
+tournament workflows and player management.
+•Implemented real-time tournament tracking, player registration, and leaderboard systems, improving match management efficiency for
+competitive gaming events.
+•Optimized server-side rendering and responsive UI components, improving application performance and user experience across devices.
+F reelance Backend Developer – TktHive Remote
+•Developed scalable backend architecture using Node.js, MongoDB, and Redis with OTP authentication, password-based login, session
+handling, and role-based access control.
+•Reduced API response latency by 40% using Redis caching, asynchronous processing, and modular RESTful architecture for
+high-concurrency backend workflows.
+•Implemented push notification systems, JWT authentication, rate limiting, input validation, and secure API workflows to improve
+backend reliability and security.
+Projects
+F orm2Mail|EJS, Node.js, REST APIs, Email Automation, Google Sheets API & Serverless|Beta Version
+• Built a serverless form-handling platform enabling static websites to process submissions with automated email workflows and
+Google Sheets integration.
+• Automated storage and processing of 100+ form submissions using Google Sheets API integration and serverless workflows.
+• Implemented validation, sanitization, and rate-limiting mechanisms to improve security and prevent malformed input processing.
+Music App Auxify|React Native, Node.js MongoDB, APIs, Spotify APIs, OAuth & Streaming|GitHub
+• Developed a React Native music streaming application integrated with Spotify APIs and OAuth authentication for personalized
+playlist management.
+• Improved mobile content loading performance by 30% through lazy loading and API response caching techniques.
+• Designed scalable RESTful backend architecture supporting concurrent users and modular service integration.
+NexGEN IRCTC|Flutter, Node.js MongoDB, RapidAPI, UI/UX & Accessibility|GitHub
+• Redesigned a railway booking application using Flutter and Node.js with RapidAPI integration for real-time train data retrieval.
+• Designed responsive Flutter interfaces with reusable components, reducing UI development redundancy and improving
+maintainability.
+• Implemented accessibility-focused UI/UX improvements and scalable frontend architecture for better mobile usability.
+urlShortner|PHP, HTML, MySQL,|GitHub
+• Developed a URL shortening platform using PHP and MySQL with collision-resistant key generation and optimized redirect
+handling.
+• Improved redirect query performance using indexed database optimization techniques for high-frequency URL access.
+• Implemented secure input validation and sanitization to prevent malformed URL submissions and injection attacks.
+--- Page 2 ---
+Education
+Master of Computer Applications (MCA)
+Manipal University Jaipur 2025 – 2027
+CGPA: 8.26
+Bachelor of Computer Applications (BCA)
+Lovely Professional University 2022 – 2025
+CGPA: 7.17
+Intermediate
+Dhwarka High School 2020 – 2022
+Percentage: 72%
+Achievements & Leadership
+Award College Y outh Ideathon (CYI)·SBI F oundation·IIT Delhi :Received national recognition at the College Youth
+Ideathon (CYI).
+Winner - W eb-E-Stan 4.0 Hackathon, School of Computer Science & Engineering, LPU:for building a
+farmer-to-consumer marketplace solution.
+Winner - Inter-college Hackathon, PCTE Groups of Institute:for innovative full-stack application development.
+Student Organization Head – InnovXus:Led the university coding club for 2+ years, organizing hackathons, coding
+workshops, and competitive programming events while mentoring a community of 1,500+ students across multiple disciplines.
+Relevant Coursework
+Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, Object-Oriented Programming, Cloud Computing,
+Application Development
