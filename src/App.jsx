@@ -21,21 +21,21 @@ import { useState, useEffect } from 'react';
 import { BsGithub, BsInstagram, BsTwitterX } from "react-icons/bs";
 import { LuLinkedin } from "react-icons/lu";
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { 
-  Briefcase, 
-  GraduationCap, 
-  Award, 
-  Code, 
-  ExternalLink, 
-  Download, 
-  ChevronRight, 
-  Menu, 
-  X, 
-  Mail, 
-  Smartphone, 
-  Monitor, 
-  Database, 
-  Cpu, 
+import {
+  Briefcase,
+  GraduationCap,
+  Award,
+  Code,
+  ExternalLink,
+  Download,
+  ChevronRight,
+  Menu,
+  X,
+  Mail,
+  Smartphone,
+  Monitor,
+  Database,
+  Cpu,
   Terminal,
   Calendar,
   MapPin,
@@ -53,7 +53,8 @@ const projects = [
     description: "A serverless form-handling platform enabling static websites to process submissions with automated email workflows and Google Sheets integration. Built with automated storage and processing of 100+ submissions.",
     tech: ["EJS", "Node.js", "REST APIs", "Google Sheets API", "Serverless"],
     category: "Full Stack",
-    link: "https://github.com/v-ishnu",
+    link: "https://github.com/v-ishnu/Form2Mail",
+    repo: "v-ishnu/Form2Mail",
     status: "Beta Version",
     iconType: "web"
   },
@@ -62,7 +63,8 @@ const projects = [
     description: "A React Native music streaming application integrated with Spotify APIs and OAuth authentication for personalized playlist management. Improved content loading performance by 30% via lazy loading and API response caching.",
     tech: ["React Native", "Node.js", "MongoDB", "Spotify API", "OAuth"],
     category: "Mobile",
-    link: "https://github.com/v-ishnu",
+    link: "https://github.com/v-ishnu/AuxiFy_App",
+    repo: "v-ishnu/AuxiFy_App",
     status: "GitHub",
     iconType: "mobile"
   },
@@ -71,7 +73,8 @@ const projects = [
     description: "Redesigned railway booking application using Flutter and Node.js with RapidAPI integration for real-time train data retrieval. Features accessibility-focused UI/UX improvements.",
     tech: ["Flutter", "Node.js", "MongoDB", "RapidAPI", "UI/UX"],
     category: "Mobile",
-    link: "https://github.com/v-ishnu",
+    link: "https://github.com/v-ishnu/NextGen-IRCTC",
+    repo: "v-ishnu/NextGen-IRCTC",
     status: "GitHub",
     iconType: "mobile"
   },
@@ -80,7 +83,8 @@ const projects = [
     description: "A secure URL shortening platform built with PHP and MySQL using collision-resistant key generation. Improved redirect query performance using database index optimization techniques.",
     tech: ["PHP", "HTML", "MySQL", "DB Indexing"],
     category: "Full Stack",
-    link: "https://github.com/v-ishnu",
+    link: "https://github.com/v-ishnu/feedback",
+    repo: "v-ishnu/feedback",
     status: "GitHub",
     iconType: "web"
   }
@@ -181,18 +185,49 @@ const achievements = [
   }
 ];
 
-const getTechStyle = (techName) => {
-  const tech = techName.toLowerCase();
-  if (tech.includes('react')) return 'bg-sky-50 text-sky-700 border-sky-200/50 hover:bg-sky-500 hover:text-white';
-  if (tech.includes('node') || tech.includes('express')) return 'bg-emerald-50 text-emerald-700 border-emerald-200/50 hover:bg-emerald-600 hover:text-white';
-  if (tech.includes('flutter') || tech.includes('dart')) return 'bg-cyan-50 text-cyan-700 border-cyan-200/50 hover:bg-cyan-500 hover:text-white';
-  if (tech.includes('api') || tech.includes('rest') || tech.includes('jwt') || tech.includes('oauth')) return 'bg-indigo-50 text-indigo-700 border-indigo-200/50 hover:bg-indigo-600 hover:text-white';
-  if (tech.includes('mongo') || tech.includes('sql') || tech.includes('db')) return 'bg-green-50 text-green-700 border-green-200/50 hover:bg-green-600 hover:text-white';
-  if (tech.includes('php') || tech.includes('ejs')) return 'bg-violet-50 text-violet-700 border-violet-200/50 hover:bg-violet-600 hover:text-white';
-  if (tech.includes('python')) return 'bg-yellow-50 text-yellow-800 border-yellow-200/50 hover:bg-yellow-600 hover:text-white';
-  if (tech.includes('html') || tech.includes('css') || tech.includes('tailwind')) return 'bg-orange-50 text-orange-700 border-orange-200/50 hover:bg-orange-500 hover:text-white';
-  if (tech.includes('git') || tech.includes('docker') || tech.includes('linux')) return 'bg-rose-50 text-rose-700 border-rose-200/50 hover:bg-rose-600 hover:text-white';
-  return 'bg-gray-50 text-gray-600 border-gray-200/60 hover:bg-gray-900 hover:text-white';
+const getTechStyle = () => {
+  return 'bg-gray-50/70 text-gray-600 border-gray-200/60 hover:bg-black hover:text-white hover:border-black';
+};
+
+const parseMarkdown = (markdown) => {
+  if (!markdown) return "";
+
+  let html = markdown
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // Strip HTML comments (which are now escaped)
+  html = html.replace(/&lt;!--[\s\S]*?--&gt;/g, "");
+
+  // Format images and automatically hide broken/empty ones
+  html = html.replace(/\!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto rounded-xl my-4 border border-gray-200" onerror="this.style.display=\'none\'" />');
+
+  // Format links
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noreferrer" class="text-indigo-600 hover:underline font-bold">$1</a>');
+
+  html = html.replace(/^### (.*$)/gim, '<h4 class="text-xs font-bold text-gray-900 mt-4 mb-2">$1</h4>');
+  html = html.replace(/^## (.*$)/gim, '<h3 class="text-sm md:text-base font-bold text-gray-900 mt-5 mb-3 border-b border-gray-100 pb-1">$1</h3>');
+  html = html.replace(/^# (.*$)/gim, '<h2 class="text-base md:text-lg font-bold text-gray-900 mt-6 mb-4">$1</h2>');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-950">$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+  html = html.replace(/```([\s\n\r\S]*?)```/gm, '<pre class="bg-gray-50 border border-gray-200/80 rounded-xl p-4 my-4 overflow-x-auto max-w-full font-mono text-xs text-gray-700 whitespace-pre-wrap break-all">$1</pre>');
+  html = html.replace(/`(.*?)`/g, '<code class="bg-gray-50 border border-gray-200 px-1.5 py-0.5 rounded text-xs font-mono text-gray-700">$1</code>');
+  html = html.replace(/^\s*-\s+(.*$)/gim, '<li class="list-disc ml-5 my-1.5 text-gray-600 text-xs">$1</li>');
+  html = html.replace(/^\s*\*\s+(.*$)/gim, '<li class="list-disc ml-5 my-1.5 text-gray-600 text-xs">$1</li>');
+  html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="list-decimal ml-5 my-1.5 text-gray-600 text-xs">$1</li>');
+
+  const lines = html.split('\n');
+  const processedLines = lines.map(line => {
+    if (line.includes('<pre') || line.includes('<code') || line.includes('<img') || line.includes('<a')) return line;
+    if (line.trim() === '') return '<br/>';
+    if (line.startsWith('<h') || line.startsWith('<li') || line.startsWith('<pre') || line.startsWith('<ul') || line.startsWith('<ol') || line.startsWith('<br') || line.startsWith('<img') || line.startsWith('<a')) {
+      return line;
+    }
+    return `<p class="text-xs text-gray-600 leading-relaxed my-2">${line}</p>`;
+  });
+
+  return processedLines.join('\n');
 };
 
 const fadeInUp = {
@@ -208,6 +243,82 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [projectFilter, setProjectFilter] = useState('All');
   const [activeSection, setActiveSection] = useState('home');
+  const [activeProjectModal, setActiveProjectModal] = useState(null);
+  const [branches, setBranches] = useState([]);
+  const [selectedBranch, setSelectedBranch] = useState("");
+  const [readmeContent, setReadmeContent] = useState("");
+  const [loadingReadme, setLoadingReadme] = useState(false);
+  const [loadingBranches, setLoadingBranches] = useState(false);
+
+  const openProjectDetails = async (project) => {
+    setActiveProjectModal(project);
+    if (!project.repo) {
+      setReadmeContent("");
+      setBranches([]);
+      setSelectedBranch("");
+      return;
+    }
+
+    setLoadingBranches(true);
+    setLoadingReadme(true);
+    setReadmeContent("");
+    setBranches([]);
+    setSelectedBranch("");
+
+    let branchNames = ["main", "master"];
+    let initialBranch = "main";
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${project.repo}/branches`);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          branchNames = data.map(b => b.name);
+          if (branchNames.includes("main")) {
+            initialBranch = "main";
+          } else if (branchNames.includes("master")) {
+            initialBranch = "master";
+          } else {
+            initialBranch = branchNames[0];
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch branches:", err);
+    } finally {
+      setBranches(branchNames);
+      setSelectedBranch(initialBranch);
+      setLoadingBranches(false);
+    }
+
+    await fetchReadme(project.repo, initialBranch);
+  };
+
+  const fetchReadme = async (repo, branch) => {
+    setLoadingReadme(true);
+    setReadmeContent("");
+    try {
+      const response = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/README.md`);
+      if (response.ok) {
+        const text = await response.text();
+        setReadmeContent(text);
+      } else {
+        setReadmeContent("");
+      }
+    } catch (err) {
+      console.error("Failed to fetch README:", err);
+      setReadmeContent("");
+    } finally {
+      setLoadingReadme(false);
+    }
+  };
+
+  const handleBranchChange = async (branch) => {
+    setSelectedBranch(branch);
+    if (activeProjectModal) {
+      await fetchReadme(activeProjectModal.repo, branch);
+    }
+  };
 
   const images = [
     Dart,
@@ -253,6 +364,21 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when project modal is open
+  useEffect(() => {
+    if (activeProjectModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.overflowX = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.overflowX = '';
+    };
+  }, [activeProjectModal]);
 
   // Scroll spy observer
   useEffect(() => {
@@ -307,16 +433,16 @@ function App() {
     restDelta: 0.001
   });
 
-  const filteredProjects = projectFilter === 'All' 
-    ? projects 
+  const filteredProjects = projectFilter === 'All'
+    ? projects
     : projects.filter(p => p.category === projectFilter);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-gray-50/60 select-none font-outfit scroll-smooth">
       {/* Reading progress bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 z-[100] origin-left"
-        style={{ scaleX }}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3.5px] z-[100] origin-left"
+        style={{ scaleX, backgroundColor: '#9ca3af' }}
       />
       {/* Grid Pattern overlay */}
       <div
@@ -332,7 +458,7 @@ function App() {
       {/* Floating Header */}
       <AnimatePresence>
         {scrolled && (
-          <motion.header 
+          <motion.header
             initial={{ y: -80, x: "-50%", opacity: 0 }}
             animate={{ y: 0, x: "-50%", opacity: 1 }}
             exit={{ y: -80, x: "-50%", opacity: 0 }}
@@ -352,14 +478,13 @@ function App() {
                 { id: 'skills', label: 'Skills' },
                 { id: 'education', label: 'Education' }
               ].map((item) => (
-                <a 
+                <a
                   key={item.id}
-                  href={`#${item.id}`} 
-                  className={`px-3 py-1.5 rounded-full transition-all duration-300 ${
-                    activeSection === item.id 
-                      ? 'bg-black text-white shadow-sm' 
-                      : 'hover:text-black hover:bg-gray-100/60'
-                  }`}
+                  href={`#${item.id}`}
+                  className={`px-3 py-1.5 rounded-full transition-all duration-300 ${activeSection === item.id
+                    ? 'bg-black text-white shadow-sm'
+                    : 'hover:text-black hover:bg-gray-100/60'
+                    }`}
                 >
                   {item.label}
                 </a>
@@ -367,20 +492,20 @@ function App() {
             </nav>
 
             <div className="flex items-center gap-2.5">
-              <button 
-                onClick={downloadCV} 
+              <button
+                onClick={downloadCV}
                 className="hidden sm:flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 text-black px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 transition-all active:scale-95"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Resume</span>
               </button>
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="bg-black hover:bg-gray-900 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 Hire Me
               </a>
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-1 md:hidden hover:bg-gray-100 rounded-full text-gray-700 transition-colors"
                 aria-label="Toggle Menu"
@@ -395,11 +520,11 @@ function App() {
       {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && scrolled && (
-          <motion.div 
-            initial={{ opacity: 0, y: -15, scale: 0.95 }}
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.95 }}
-            className="fixed top-18 left-1/2 -translate-x-1/2 w-[90%] bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-2xl z-40 p-5 flex flex-col gap-3.5 font-semibold text-gray-600 md:hidden"
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            className="fixed top-20 right-[5%] w-40 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-xl z-[60] p-2 flex flex-col gap-1 font-semibold text-gray-600 md:hidden"
           >
             {[
               { id: 'services', label: 'Services' },
@@ -408,24 +533,23 @@ function App() {
               { id: 'skills', label: 'Skills' },
               { id: 'education', label: 'Education' }
             ].map((item) => (
-              <a 
+              <a
                 key={item.id}
-                href={`#${item.id}`} 
-                onClick={() => setMobileMenuOpen(false)} 
-                className={`py-2 px-3 rounded-xl transition-all ${
-                  activeSection === item.id 
-                    ? 'bg-black text-white' 
-                    : 'hover:text-black hover:bg-gray-50'
-                }`}
+                href={`#${item.id}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`py-1.5 px-2.5 text-xs rounded-xl transition-all ${activeSection === item.id
+                  ? 'bg-black text-white'
+                  : 'hover:text-black hover:bg-gray-50'
+                  }`}
               >
                 {item.label}
               </a>
             ))}
-            <button 
-              onClick={() => { downloadCV(); setMobileMenuOpen(false); }} 
-              className="flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 py-3 rounded-full text-sm font-bold border border-gray-200 text-black mt-2 active:scale-95 transition-all"
+            <button
+              onClick={() => { downloadCV(); setMobileMenuOpen(false); }}
+              className="flex items-center justify-center gap-1.5 bg-gray-50 hover:bg-gray-100 py-1.5 rounded-xl text-xs font-bold border border-gray-200 text-black mt-1 active:scale-95 transition-all"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-3.5 h-3.5" />
               <span>Download CV</span>
             </button>
           </motion.div>
@@ -438,8 +562,8 @@ function App() {
         <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-indigo-200/15 rounded-full blur-[100px] pointer-events-none animate-float-1" />
         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-purple-200/10 rounded-full blur-[100px] pointer-events-none animate-float-2" />
 
-        {/* Hero Section Container */}
-        <div className="min-h-[100vh] md:h-[105vh] flex flex-col bg-white rounded-bl-[45px] rounded-br-[45px] md:rounded-bl-[100px] md:rounded-br-[100px] border-b border-gray-200/80 relative overflow-hidden shadow-sm">
+        {/* Hero Section Container (Rounded Bottom Card) */}
+        <div className="relative min-h-[80vh] bg-white border-b border-gray-200/80 rounded-bl-[45px] rounded-br-[45px] md:rounded-bl-[100px] md:rounded-br-[100px] overflow-hidden shadow-sm">
           {/* Subtle grid pattern inside header block */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -508,8 +632,8 @@ function App() {
                 >
                   {copied ? 'Copied!' : 'Copy'}
                 </button>
-                <button 
-                  onClick={downloadCV} 
+                <button
+                  onClick={downloadCV}
                   className="bg-black text-white hover:bg-gray-900 rounded-full px-5 py-2 text-xs font-bold shadow-md flex items-center gap-1.5 transition-all hover:scale-102 active:scale-98"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -530,14 +654,16 @@ function App() {
             {/* Main Content */}
             <div className="flex flex-col flex-grow justify-center items-center gap-8 py-10 md:py-16">
               {/* Profile Image & Floating Tag */}
-              <div className="relative flex items-center justify-center">
-                <div className="overflow-hidden h-32 w-32 md:h-36 md:w-36 rounded-full border-4 border-white shadow-2xl bg-gray-50">
-                  <img src={Profile} alt="Vishnu Prakash" className="h-full w-full object-cover" />
-                </div>
-                <div className="absolute bg-white shadow-xl w-max h-12 ml-[195px] rounded-full -rotate-12 flex items-center justify-center px-4.5 py-2 border border-gray-200/50 animate-[bounce_6s_infinite] hover:scale-105 transition-transform duration-300">
-                  <span className="font-outfit text-sm font-bold text-black tracking-tight flex items-center gap-1">
-                    Vishnu Prakash <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" />
-                  </span>
+              <div className="flex items-center justify-center">
+                <div className="relative">
+                  <div className="overflow-hidden h-32 w-32 md:h-36 md:w-36 rounded-full border-4 border-white shadow-2xl bg-gray-50">
+                    <img src={Profile} alt="Vishnu Prakash" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="absolute bottom-1 -right-6 md:-right-8 bg-white shadow-xl w-max h-9 md:h-10 rounded-full -rotate-12 flex items-center justify-center px-3.5 md:px-4 py-1.5 border border-gray-200/50 animate-[bounce_6s_infinite] hover:scale-105 transition-transform duration-300 z-20">
+                    <span className="font-outfit text-[11px] md:text-sm font-bold text-black tracking-tight flex items-center gap-1.5">
+                      Vishnu Prakash 👋
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -555,7 +681,7 @@ function App() {
               </div>
 
               <div className="text-center px-4 max-w-2xl text-gray-500 text-sm md:text-base leading-relaxed font-medium">
-                React Native & Full Stack Developer with hands-on experience building high-performance mobile apps, 
+                React Native & Full Stack Developer with hands-on experience building high-performance mobile apps,
                 scalable RESTful APIs, and responsive architectures. LPU Coding Club Head & National Hackathon Winner.
               </div>
 
@@ -567,7 +693,7 @@ function App() {
                 >
                   View Selected Projects
                 </a>
-                <button 
+                <button
                   onClick={downloadCV}
                   className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 px-8 py-4 rounded-full text-sm font-bold transition-all shadow-sm hover:shadow flex items-center gap-2 active:scale-98"
                 >
@@ -582,8 +708,8 @@ function App() {
           </div>
         </div>
 
-        {/* Marquee Section */}
-        <div className="relative w-full overflow-hidden bg-white border-b border-gray-200 py-10 shadow-sm">
+        {/* Marquee Section (Core Tech Stack - Flat Bottom) */}
+        <div className="relative w-full overflow-hidden bg-white border-b border-gray-200/80 py-10 shadow-sm z-10">
           <div className="flex justify-center mb-6">
             <span className="text-xs uppercase tracking-widest font-bold font-outfit text-gray-400 flex items-center gap-2">
               <Terminal className="w-3.5 h-3.5 text-gray-400" /> Core Tech Stack
@@ -616,8 +742,8 @@ function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full">
           {services.map((service, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="flex flex-col bg-white border border-gray-200/80 hover:border-black/15 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
             >
               <div className="w-12 h-12 rounded-xl bg-gray-50 group-hover:bg-black group-hover:text-white flex items-center justify-center border border-gray-100 mb-5 transition-all duration-300">
@@ -640,18 +766,17 @@ function App() {
                 Selected Projects
               </h2>
             </div>
-            
+
             {/* Category Filter */}
             <div className="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
               {['All', 'Mobile', 'Full Stack'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setProjectFilter(cat)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition-all border shrink-0 ${
-                    projectFilter === cat 
-                      ? 'bg-black border-black text-white shadow-md scale-102' 
-                      : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-500 hover:text-black'
-                  }`}
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition-all border shrink-0 ${projectFilter === cat
+                    ? 'bg-black border-black text-white shadow-md scale-102'
+                    : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-500 hover:text-black'
+                    }`}
                 >
                   {cat}
                 </button>
@@ -660,9 +785,9 @@ function App() {
           </div>
 
           {/* Projects Grid */}
-          <motion.div 
-            layout 
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, idx) => (
@@ -674,7 +799,8 @@ function App() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
                   key={project.title}
-                  className="group relative bg-white border border-gray-200 hover:border-black/20 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:shadow-[0_20px_50px_rgba(99,_102,_241,_0.05)] transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                  onClick={() => openProjectDetails(project)}
+                  className="group relative bg-white border border-gray-200 hover:border-black/20 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-sm hover:shadow-xl hover:shadow-[0_20px_50px_rgba(99,_102,_241,_0.05)] transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer"
                 >
                   {/* Hover background mesh glow */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-sky-50/15 via-indigo-50/10 to-purple-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 pointer-events-none" />
@@ -705,8 +831,8 @@ function App() {
                     {/* Tech Badges */}
                     <div className="flex flex-wrap gap-1.5 mb-6">
                       {project.tech.map((t) => (
-                        <span 
-                          key={t} 
+                        <span
+                          key={t}
                           className={`text-[10px] font-bold border px-3 py-1.5 rounded-xl transition-all duration-300 ${getTechStyle(t)}`}
                         >
                           {t}
@@ -716,10 +842,11 @@ function App() {
 
                     {/* Footer / Links */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
+                      <a
+                        href={project.link}
+                        target="_blank"
                         rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="text-xs font-bold text-gray-800 hover:text-black flex items-center gap-1.5 hover:underline"
                       >
                         <BsGithub className="w-4 h-4 text-black group-hover:rotate-12 transition-transform duration-300" />
@@ -750,8 +877,8 @@ function App() {
           {/* Timeline Structure */}
           <div className="relative border-l border-gray-300 md:pl-10 pl-6 ml-2 md:ml-4 space-y-12">
             {experiences.map((exp, idx) => (
-              <motion.div 
-                key={idx} 
+              <motion.div
+                key={idx}
                 className="relative group"
                 {...fadeInUp}
               >
@@ -805,8 +932,8 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillCategories.map((category, idx) => (
-              <motion.div 
-                key={idx} 
+              <motion.div
+                key={idx}
                 {...fadeInUp}
                 className="bg-gray-50/50 border border-gray-200/80 rounded-3xl p-6 shadow-sm hover:shadow-lg hover:border-indigo-100 transition-all duration-300 flex flex-col h-full group"
               >
@@ -821,7 +948,7 @@ function App() {
                 {/* Skill Badges */}
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {category.skills.map((skill) => (
-                    <span 
+                    <span
                       key={skill}
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold border shadow-sm transition-all duration-300 hover:scale-105 ${getTechStyle(skill)}`}
                     >
@@ -839,7 +966,7 @@ function App() {
       <section className="py-24 bg-gray-50/50" id="education">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
+
             {/* Education Column */}
             <div>
               <div className="mb-10">
@@ -849,14 +976,14 @@ function App() {
 
               <div className="relative border-l border-gray-300 pl-6 ml-2 space-y-8">
                 {education.map((edu, idx) => (
-                  <motion.div 
-                    key={idx} 
+                  <motion.div
+                    key={idx}
                     className="relative group"
                     {...fadeInUp}
                   >
                     {/* Small Dot */}
                     <div className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-2 border-black group-hover:bg-black transition-all group-hover:scale-110" />
-                    
+
                     <div className="bg-white/50 border border-gray-100 hover:bg-white rounded-2xl p-5 shadow-sm transition-all duration-300">
                       <div className="flex items-start justify-between gap-4">
                         <h3 className="text-base md:text-lg font-bold text-gray-900">{edu.degree}</h3>
@@ -864,13 +991,13 @@ function App() {
                           {edu.grade}
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 text-xs text-gray-500 mt-1 font-semibold">
                         <span>{edu.institution}</span>
                         <span>•</span>
                         <span>{edu.period}</span>
                       </div>
-                      
+
                       <p className="text-xs text-gray-500 leading-relaxed mt-3 font-medium">
                         {edu.details}
                       </p>
@@ -889,13 +1016,13 @@ function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {achievements.map((ach, idx) => (
-                  <motion.div 
-                    key={idx} 
+                  <motion.div
+                    key={idx}
                     {...fadeInUp}
                     className="bg-white border border-gray-200/80 rounded-3xl p-5 shadow-sm hover:shadow-lg hover:border-indigo-100 transition-all duration-300 flex flex-col justify-between relative group overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-50/5 rounded-bl-full pointer-events-none group-hover:scale-110 transition-all" />
-                    
+
                     <div>
                       <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-600 mb-4 shadow-sm group-hover:scale-105 group-hover:bg-black group-hover:text-white transition-all duration-300">
                         <Award className="w-4.5 h-4.5 text-current" />
@@ -961,11 +1088,11 @@ function App() {
             <div className="font-outfit text-sm text-gray-400 font-medium">
               © {new Date().getFullYear()} Vishnu Prakash. All rights reserved.
             </div>
-            
+
             <div className="flex flex-row items-center font-outfit text-sm font-semibold text-gray-400 gap-3">
               <a
                 href="https://github.com/v-ishnu"
-                target="_blank" 
+                target="_blank"
                 rel="noreferrer"
                 className="hover:text-black transition-colors"
               >
@@ -974,7 +1101,7 @@ function App() {
               <span>/</span>
               <a
                 href="https://www.linkedin.com/in/vishnupraksh"
-                target="_blank" 
+                target="_blank"
                 rel="noreferrer"
                 className="hover:text-black transition-colors"
               >
@@ -983,7 +1110,7 @@ function App() {
               <span>/</span>
               <a
                 href="https://www.instagram.com/_im_vishn_u"
-                target="_blank" 
+                target="_blank"
                 rel="noreferrer"
                 className="hover:text-black transition-colors"
               >
@@ -992,7 +1119,7 @@ function App() {
               <span>/</span>
               <a
                 href="https://x.com/_im_vishn_u"
-                target="_blank" 
+                target="_blank"
                 rel="noreferrer"
                 className="hover:text-black transition-colors"
               >
@@ -1002,6 +1129,115 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Project Details Modal */}
+      <AnimatePresence>
+        {activeProjectModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-hidden">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveProjectModal(null)}
+              className="absolute inset-0 bg-black/45 backdrop-blur-sm"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="relative bg-white border border-gray-200 rounded-3xl shadow-2xl w-[92%] max-w-2xl max-h-[85vh] overflow-hidden overflow-x-hidden flex flex-col z-10"
+            >
+              {/* Modal Header */}
+              <div className="px-5 md:px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50/50 gap-3">
+                <div>
+                  <span className="text-[10px] font-bold tracking-wider uppercase bg-white border border-gray-200 text-gray-500 px-3 py-1 rounded-full shadow-sm">
+                    {activeProjectModal.category}
+                  </span>
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mt-2">
+                    {activeProjectModal.title}
+                  </h3>
+                </div>
+
+                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 w-full sm:w-auto">
+                  {/* Branch selector */}
+                  {branches.length > 0 && (
+                    <div className="flex items-center gap-1.5 text-[11px] md:text-xs text-gray-500 font-semibold bg-white border border-gray-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                      <span className="text-gray-400">Branch:</span>
+                      <select
+                        value={selectedBranch}
+                        onChange={(e) => handleBranchChange(e.target.value)}
+                        className="bg-transparent text-gray-700 font-bold outline-none cursor-pointer text-[11px] md:text-xs"
+                      >
+                        {branches.map((b) => (
+                          <option key={b} value={b}>{b}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={() => setActiveProjectModal(null)}
+                    className="p-1.5 hover:bg-gray-100 rounded-full text-gray-500 transition-colors"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex-grow overflow-y-auto overflow-x-hidden p-5 md:p-8 w-full">
+                {loadingReadme ? (
+                  <div className="flex flex-col items-center justify-center py-12 gap-3">
+                    <div className="w-6 h-6 border-2 border-gray-300 border-t-black rounded-full animate-spin" />
+                    <span className="text-xs font-semibold text-gray-500">Fetching README details from GitHub...</span>
+                  </div>
+                ) : readmeContent ? (
+                  <div className="prose prose-sm max-w-full overflow-x-hidden w-full" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                    <div className="max-w-full overflow-x-hidden" dangerouslySetInnerHTML={{ __html: parseMarkdown(readmeContent) }} />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {activeProjectModal.description}
+                    </p>
+                    <div className="bg-amber-50 border border-amber-200/50 rounded-2xl p-4 text-amber-800 text-xs font-medium leading-relaxed">
+                      Could not fetch GitHub README details. Showing fallback offline project description.
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="px-5 md:px-6 py-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50/30 gap-3">
+                <div className="flex flex-wrap gap-1.5 max-w-full">
+                  {activeProjectModal.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="text-[9px] font-bold border border-gray-200/80 bg-white px-2.5 py-1 rounded-lg text-gray-500"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={activeProjectModal.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-black hover:bg-gray-900 text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-1.5 w-full sm:w-auto text-center"
+                >
+                  <BsGithub className="w-4 h-4" />
+                  <span>GitHub Repo</span>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
